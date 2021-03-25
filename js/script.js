@@ -3,10 +3,12 @@ const $ = (id) => {
 };
 
 const processEntries = () => {
+    // DEFINE GENERIC VARIABLES
     let header = '';
     let html = '';
     let required = '<span>Required field</span>';
-    let msg = 'Please review your entries and complete all required fields';
+    let message = 'Review your entries and complete all required fields';
+    // COLLECT VALUES FROM FORM ELEMENTS
     let email = $('email_address').value;
     let phone = $('phone').value;
     let country = $('country').value;
@@ -18,44 +20,46 @@ const processEntries = () => {
         contact = 'None';
     }
     let terms = $('terms').checked;
-
+    // CHECK FOR EMPTY VALUES
     if (email === '') {
         email = required;
-        header = msg;
+        header = message;
     }
-	if (phone === '') {
+    if (phone === '') {
         phone = required;
-        header = msg;
+        header = message;
     }
-	if (country === '') {
+    if (country === '') {
         country = required;
-        header = msg;
+        header = message;
     }
     if (terms === false) {
         terms = required;
-        header = msg;
+        header = message;
     }
-    
     $('registration_header').innerHTML = header;
-    if (header === msg) {
-        html = html + '<tr><td>Email:</td><td>' + email + '</td></tr>';
-        html = html + '<tr><td>Phone:</td><td>' + phone + '</td></tr>';
-        html = html + '<tr><td>Country:</td><td>' + country + '</td></tr>';
-        html = html + '<tr><td>Contact:</td><td>' + contact + '</td></tr>';
-        html = html + '<tr><td>Terms:</td><td>' + terms + '</td></tr>';
+    // BUILD OUT THE ERROR MESSAGE IF ANYTHING IS WRONG ABOVE
+    if (header === message) {
+        html = 
+            `
+            <tr><td>Email:</td><td>${email}</td></tr>
+            <tr><td>Phone:</td><td>${phone}</td></tr>
+            <tr><td>Country:</td><td>${country}</td></tr>
+            <tr><td>Contact:</td><td>${contact}</td></tr>
+            <tr><td>Terms:</td><td>${terms}</td></tr>
+            `;
         $('registration_info').innerHTML = html;
     } else {
-        $('registration_info').innerHTML = '';
         $('registration_form').submit();
     }
-};
+}
 
 const resetForm = () => {
     $('registration_form').reset();
     $('registration_header').innerHTML = '';
     $('registration_info').innerHTML = '';
     $('email_address').focus();
-};
+}
 
 window.addEventListener('load', () => {
     $('register').addEventListener('click', processEntries);
