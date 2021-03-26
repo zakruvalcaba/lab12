@@ -7,7 +7,8 @@ const processEntries = () => {
     let header = '';
     let html = '';
     let required = '<span>Required field</span>';
-    let message = 'Review your entries and complete all required fields';
+    let message = 'Review your entries and complete all requied fields.';
+
     // COLLECT VALUES FROM FORM ELEMENTS
     let email = $('email_address').value;
     let phone = $('phone').value;
@@ -19,7 +20,11 @@ const processEntries = () => {
     if ($('none').checked) {
         contact = 'None';
     }
-    let terms = $('terms').checked;
+    let terms = '';
+    if ($('terms').checked) {
+        terms = 'I Accept';
+    }
+
     // CHECK FOR EMPTY VALUES
     if (email === '') {
         email = required;
@@ -33,12 +38,13 @@ const processEntries = () => {
         country = required;
         header = message;
     }
-    if (terms === false) {
+    if (terms === '') {
         terms = required;
         header = message;
     }
     $('registration_header').innerHTML = header;
-    // BUILD OUT THE ERROR MESSAGE IF ANYTHING IS WRONG ABOVE
+
+    // BUILD OUT ERROR MESSAGE IF ANYTHING IS WRONG ABOVE
     if (header === message) {
         html = 
             `
@@ -52,14 +58,14 @@ const processEntries = () => {
     } else {
         $('registration_form').submit();
     }
-}
+};
 
 const resetForm = () => {
     $('registration_form').reset();
     $('registration_header').innerHTML = '';
     $('registration_info').innerHTML = '';
     $('email_address').focus();
-}
+};
 
 window.addEventListener('load', () => {
     $('register').addEventListener('click', processEntries);
