@@ -5,24 +5,24 @@
     <title>Lab 12: The Register Application</title>
     <link href="css/styles.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
-    <script src="js/script.js"></script>
+    <script src="js/script.js" defer></script>
 </head>
 <body>
-    <main>
-        <h1>Register for an Account</h1>
+    <main class="container m-5">
+        <h1 class="pb-4">Register for an Account</h1>
         <form action="register_account.html" method="get" id="registration_form">
             <div class="form-group">
                 <label for="email_address">Email</label>
-                <input type="text" id="email_address" class="form-control"><br>
+                <input type="email" id="email_address" class="form-control">
                 <label for="phone">Phone</label>
-                <input type="text" id="phone" class="form-control"><br>
+                <input type="text" id="phone" class="form-control">
                 <label for="country">Country</label>
                 <select id="country" class="form-control">
                     <option value="">Select an option</option>
                     <option>USA</option>
                     <option>Canada</option>
                     <option>Mexico</option>
-                </select><br>
+                </select>
                 <strong>Contact me by</strong><br>    
                 <label for="text"><input type="radio" name="contact" id="text" value="text" checked> Text</label>
                 <label for="email"><input type="radio" name="contact" id="email" value="email"> Email</label>
