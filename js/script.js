@@ -1,72 +1,92 @@
-// DOM HANDLER FUNCTION
-const $ = (id) => document.getElementById(id)
+// VIEW EMPLOYEES
+function view(employees) {
+    // VARIABLE FOR EMPLOYEE NUMBERS
+    let i = 1
+    // LOOP THROUGH EMPLOYEES ARRAY
+    employees.forEach(employee => {
+        console.log(`${String(i)}. ${employee}`)
+        i++
+    })
+    console.log('')
+}
 
-// PROCESS ENTRIES
-const processEntries = () => {
-    // DEFINE GENERIC VARIABLES
-    let header = ''
-    let html = ''
-    let required = '<span>Required field</span>'
-    let message = 'Review your entries and complete all required fields.'
+// ADD EMPLOYEE
+function add(employees) {
+    // PROMPT USER FOR EMPLOYEE TO ADD
+    let employee = prompt('Enter the employee\'s name')
+    // ADD EMPLOYEE TO ARRAY
+    employees.push(employee)
+    // SHOW SUCCESS MESSAGE
+    console.log(`${employee} was added.`)
+    console.log('')
+}
 
-    // COLLECT VALUES FROM FORM ELEMENTS
-    let email = $('email_address').value
-    let phone = $('phone').value
-    let country = $('country').value
-    let contact = 'Text'
-    if ($('email').checked) {
-        contact = 'Email'
-    }
-    if ($('none').checked) {
-        contact = 'None'
-    }
-    let terms = ''
-    if ($('terms').checked) {
-        terms = 'I Accept'
-    }
-
-    // CHECK FOR EMPTY VALUES
-    if (email === '') {
-        email = required
-        header = message
-    }
-    if (phone === '') {
-        phone = required
-        header = message
-    }
-    if (country === '') {
-        country = required
-        header = message
-    }
-    if (terms === '') {
-        terms = required
-        header = message
-    }
-    $('registration_header').innerHTML = header
-
-    // BUILD OUT ERROR MESSAGE IF ANYTHING IS WRONG ABOVE
-    if (header === message) {
-        html = 
-            `
-            <tr><td>Email:</td><td>${email}</td></tr>
-            <tr><td>Phone:</td><td>${phone}</td></tr>
-            <tr><td>Country:</td><td>${country}</td></tr>
-            <tr><td>Contact:</td><td>${contact}</td></tr>
-            <tr><td>Terms:</td><td>${terms}</td></tr>
-            `
-        $('registration_info').innerHTML = html
+// DELETE EMPLOYEE
+function del(employees) {
+    // PROMPT USER FOR EMPLOYEE NUMBER TO DELETE
+    let empNum = parseInt(prompt('Enter the employee\'s number to delete'))
+    // MAKE SURE EMPLOYEE NUMBER IS VALID
+    if (!empNum < 1 || !empNum > employees.length) {
+        // SPLICE OUT EMPLOYEE TO DELETE
+        let employee = employees.splice(empNum - 1, 1)
+        // SHOW SUCCESS MESSAGE
+        console.log(`${employee} was deleted.`)
+        console.log('')
     } else {
-        $('registration_form').submit()
+        alert('Invalid employee number.')
     }
 }
-// RESET FORM
-const resetForm = () => {
-    $('registration_form').reset()
-    $('registration_header').innerHTML = ''
-    $('registration_info').innerHTML = ''
-    $('email_address').focus()
-}
 
-$('register').addEventListener('click', processEntries)
-$('reset_form').addEventListener('click', resetForm)
-$('email_address').focus()
+// FUNCTION TO CALL WHEN PAGE LOADS
+function init() {
+    // BEGIN BY SHOWING MAIN MENU
+    console.log('Employee Management Application')
+    console.log('-------------------------------')
+    console.log('COMMAND MENU')
+    console.log('view - Show all employees')
+    console.log('add - Add an employee')
+    console.log('del - Delete an employees')
+    console.log('exit - Exit application')
+    console.log('')
+
+    // CREATE A TEMPORARY ARRAY OF EMPLOYEES
+    let employees = [
+        'Zak Ruvalcaba',
+        'Sally Smith',
+        'Joe Johnson',
+        'Pedro Ramirez',
+        'Stew Franklin'
+    ]
+
+    // KEEP COMMAND MENU UP UNTIL USER DECICES TO END PROGRAM
+    while(true) {
+        // ASK THE USER FOR COMMAND
+        let command = prompt('Enter command')
+        // CHECK TO SEE IF THE USER CANCELLED THE PROMPT
+        if (command !== null) {
+            // CONVERT VALUE TO LOWER CASE
+            command = command.toLowerCase()
+            // CHECK THE COMMAND ENTERED
+            if (command === 'view') {
+                // VIEW EMPLOYEES
+                view(employees)
+            } else if (command === 'add') {
+                // ADD EMPLOYEE
+                add(employees)
+            } else if (command === 'del') {
+                // DELETE EMPLOYEE
+                del(employees)
+            } else if (command === 'exit') {
+                // EXIT APPLICATION
+                break
+            } else {
+                alert('This is not a valid value.')
+            }
+        } else {
+            alert('Please enter a value.')
+        }
+    }
+
+    console.log('Program terminated.')
+}
+init()
