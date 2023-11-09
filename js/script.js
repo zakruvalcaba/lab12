@@ -1,11 +1,11 @@
 // VIEW EMPLOYEES
 function view(employees) {
     // VARIABLE FOR EMPLOYEE NUMBERS
-    let i = 1
+    let emplID = 1
     // LOOP THROUGH EMPLOYEES ARRAY
-    employees.forEach(employee => {
-        console.log(`${String(i)}. ${employee}`)
-        i++
+    employees.forEach((employee) => {
+        console.log(`${String(emplID)}. ${employee}`)
+        emplID++
     })
     console.log('')
 }
@@ -21,72 +21,69 @@ function add(employees) {
     console.log('')
 }
 
-// DELETE EMPLOYEE
-function del(employees) {
-    // PROMPT USER FOR EMPLOYEE NUMBER TO DELETE
-    let empNum = parseInt(prompt('Enter the employee\'s number to delete'))
-    // MAKE SURE EMPLOYEE NUMBER IS VALID
-    if (!empNum < 1 || !empNum > employees.length) {
-        // SPLICE OUT EMPLOYEE TO DELETE
-        let employee = employees.splice(empNum - 1, 1)
+// REMOVE EMPLOYEE
+function remove(employees) {
+    // PROMPT USER FOR EMPLOYEE ID TO REMOVE
+    let emplID = parseInt(prompt('Enter the employee\'s ID to remove.'))
+    // MAKE SURE THE NUMBER IS VALID
+    if (emplID >= 1 && emplID <= employees.length) {
+        // SPLICE OUT EMPLOYEE TO REMOVE
+        let employee = employees.splice(emplID - 1, 1)
         // SHOW SUCCESS MESSAGE
         console.log(`${employee} was deleted.`)
         console.log('')
     } else {
-        alert('Invalid employee number.')
+        alert('Invalid employee ID.')
     }
 }
 
 // FUNCTION TO CALL WHEN PAGE LOADS
 function init() {
-    // BEGIN BY SHOWING MAIN MENU
-    console.log('Employee Management Application')
+    // BEGIN BY SHOWING A MAIN MENU
+    console.log('EMPLOYEE MANAGEMENT APPLICATION')
     console.log('-------------------------------')
     console.log('COMMAND MENU')
-    console.log('view - Show all employees')
-    console.log('add - Add an employee')
-    console.log('del - Delete an employees')
-    console.log('exit - Exit application')
+    console.log('view - view all employees')
+    console.log('add - add an employee')
+    console.log('remove - remove an employee')
+    console.log('exit - exit the application')
     console.log('')
 
-    // CREATE A TEMPORARY ARRAY OF EMPLOYEES
+    // BUILD OUT INITIAL ARRAY OF EMPLOYEES
     let employees = [
         'Zak Ruvalcaba',
         'Sally Smith',
+        'Pepe Ramirez',
         'Joe Johnson',
-        'Pedro Ramirez',
         'Stew Franklin'
     ]
 
-    // KEEP COMMAND MENU UP UNTIL USER DECICES TO END PROGRAM
-    while(true) {
-        // ASK THE USER FOR COMMAND
-        let command = prompt('Enter command')
-        // CHECK TO SEE IF THE USER CANCELLED THE PROMPT
+    // KEEP COMMAND MENU UP UNTIL USER DECIDES TO EXIT THE PROGRAM
+    do {
+        // ASK THE USER FOR A COMMAND
+        let command = prompt('Enter your command')
+        // CHECK AND MAKE SURE USER DID NOT CANCEL OUT OF PROMPT
         if (command !== null) {
-            // CONVERT VALUE TO LOWER CASE
-            command = command.toLowerCase()
-            // CHECK THE COMMAND ENTERED
+            // CHECK THE COMMAND THAT WAS ENTERED
             if (command === 'view') {
                 // VIEW EMPLOYEES
                 view(employees)
             } else if (command === 'add') {
-                // ADD EMPLOYEE
+                // ADD AN EMPLOYEE
                 add(employees)
-            } else if (command === 'del') {
-                // DELETE EMPLOYEE
-                del(employees)
+            } else if (command === 'remove') {
+                // REMOVE AN EMPLOYEE
+                remove(employees)
             } else if (command === 'exit') {
                 // EXIT APPLICATION
                 break
             } else {
-                alert('This is not a valid value.')
+                alert('This is not a valid command.')
             }
         } else {
-            alert('Please enter a value.')
+            alert('Please enter a command.')
         }
-    }
-
-    console.log('Program terminated.')
+    } while (true)
+    console.log('Program has been terminated.')
 }
 init()
